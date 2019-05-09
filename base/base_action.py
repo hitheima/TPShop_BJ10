@@ -92,8 +92,7 @@ class BaseAction:
 
     def is_toast_exits(self, message):
         try:
-            xxx = self.find_toast(message)
-            print(xxx)
+            self.find_toast(message)
             return True
         except TimeoutException:
             return False
