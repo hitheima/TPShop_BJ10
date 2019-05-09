@@ -30,3 +30,23 @@ class LoginPage(BaseAction):
     @allure.step(title='登录 - 点击 登录')
     def click_login(self):
         self.click(self.login_button)
+
+    def is_login_button_enabled(self):
+        """
+        判断 登录按钮 是否可用
+        :return:
+            可用：true
+            不可用：false
+        """
+        return not self.find_element(self.login_button).get_attribute("enabled") == "false"
+
+        # if self.find_element(self.login_button).get_attribute("enabled") == "false":
+        #     return not self.find_element(self.login_button).get_attribute("enabled") == "false"
+        # else:
+        #     return not self.find_element(self.login_button).get_attribute("enabled") == "false"
+
+        # if self.find_element(self.login_button).get_attribute("enabled") == "false":
+        #     return False
+        # else:
+        #     return True
+
