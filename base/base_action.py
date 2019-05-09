@@ -1,3 +1,5 @@
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
 import allure
@@ -8,7 +10,7 @@ class BaseAction:
     def __init__(self, driver):
         self.driver = driver
 
-    def find_element(self, feature, timeout=10, poll=1):
+    def find_element(self, feature, timeout=10.0, poll=1.0):
         """
         根据元素特征（元组）寻找对应的一个元素
         :param feature: 特征
@@ -19,7 +21,7 @@ class BaseAction:
         by, value = feature
         return WebDriverWait(self.driver, timeout, poll).until(lambda x: x.find_element(by, value))
 
-    def find_elements(self, feature, timeout=10, poll=1):
+    def find_elements(self, feature, timeout=10.0, poll=1.0):
         """
         根据元素特征（元组）寻找对应的一组元素
         :param feature: 特征
@@ -82,3 +84,16 @@ class BaseAction:
         """
         with open("./image/" + file_name, "rb") as f:
             allure.attach(title, f.read(), allure.attach_type.PNG)
+
+    def find_toast(self, message):
+        toast_xpath = By.XPATH, "//*[contains(@text,'%s')]" % message
+        print(toast_xpath)
+        return self.find_element(toast_xpath, timeout=3, poll=0.1).text
+
+    def is_toast_exits(self, message):
+        try:
+            xxx = self.find_toast(message)
+            print(xxx)
+            return True
+        except TimeoutException:
+            return False
