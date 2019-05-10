@@ -24,9 +24,7 @@ def run_test_show_password_times(count):
         temp_list.append(random_password())
     return temp_list
 
-
 class TestLogin:
-
     def setup(self):
         self.driver = init_driver()
         self.page = Page(self.driver)

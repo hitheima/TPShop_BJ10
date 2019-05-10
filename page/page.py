@@ -1,3 +1,5 @@
+from page.address_info_page import AddressInfoPage
+from page.address_page import AddressPage
 from page.home_page import HomePage
 from page.login_page import LoginPage
 from page.mine_page import MinePage
@@ -19,3 +21,13 @@ class Page:
     @property
     def login(self):
         return LoginPage(self.driver)
+
+
+    @property
+    def address(self):
+        return AddressPage(self.driver)
+
+    @property
+    def address_info(self):
+        return AddressInfoPage(self.driver)
+
