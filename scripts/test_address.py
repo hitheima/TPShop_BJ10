@@ -28,5 +28,16 @@ class TestAddress:
         self.page.address_info.input_phone("13800138006")
         # 收货地址 - 输入详细地址
         self.page.address_info.input_address("2单元 402")
+        # 收货地址 - 点击区域
+        self.page.address_info.click_region()
+        # 区域页面 - 选择省市区镇
+        self.page.region.click_region()
+        # 区域页面 - 点击确定
+        self.page.region.click_commit()
+        # 收货地址 - 点击保存收货地址
+        self.page.address_info.click_save_address()
+
+        assert self.page.address_info.is_toast_exits("成功")
+
 
 

@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.common.by import By
 
 from base.base_action import BaseAction
@@ -31,6 +33,7 @@ class MinePage(BaseAction):
     @allure.step(title='我的 - 点击 设置按钮')
     # 点击 设置按钮
     def get_titlebar_text(self):
+        time.sleep(1)
         return self.find_element(self.titlebar_title).text
 
     def click_address(self):

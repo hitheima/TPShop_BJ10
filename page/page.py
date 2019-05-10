@@ -3,6 +3,7 @@ from page.address_page import AddressPage
 from page.home_page import HomePage
 from page.login_page import LoginPage
 from page.mine_page import MinePage
+from page.region_page import RegionPage
 
 
 class Page:
@@ -22,7 +23,6 @@ class Page:
     def login(self):
         return LoginPage(self.driver)
 
-
     @property
     def address(self):
         return AddressPage(self.driver)
@@ -30,4 +30,8 @@ class Page:
     @property
     def address_info(self):
         return AddressInfoPage(self.driver)
+
+    @property
+    def region(self):
+        return RegionPage(self.driver)
 

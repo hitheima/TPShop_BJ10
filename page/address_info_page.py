@@ -17,7 +17,10 @@ class AddressInfoPage(BaseAction):
     address_edit_text = By.ID, "com.tpshop.malls:id/consignee_address_edtv"
 
     # 收货地址 - 区域
-    regin_button = By.ID, "com.tpshop.malls:id/consignee_region_txtv"
+    region_button = By.ID, "com.tpshop.malls:id/consignee_region_txtv"
+
+    # 收货地址 - 保存收货地址
+    save_address_button = By.XPATH, "//*[@text='保存收货地址']"
 
     # 输入 收货人
     def input_name(self, content):
@@ -32,5 +35,9 @@ class AddressInfoPage(BaseAction):
         self.input(self.address_edit_text, content)
 
     # 点击 区域
-    def click_regin(self, content):
-        self.input(self.regin_button, content)
+    def click_region(self):
+        self.click(self.region_button)
+
+    # 点击 保存收货地址
+    def click_save_address(self):
+        self.click(self.save_address_button)
