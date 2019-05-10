@@ -1,5 +1,8 @@
 import random
+import time
 
+import allure
+from allure.constants import AttachmentType
 from selenium.webdriver.common.by import By
 
 from base.base_analyze import analyze_data
@@ -40,6 +43,8 @@ class TestLogin:
             raise Exception("密码刚刚输入，就是能找到，不符合需求")
 
         self.page.login.click_view_password()
+        time.sleep(1)
+        allure.attach("截图：", self.driver.get_screenshot_as_png(), AttachmentType.PNG)
         assert self.page.login.is_password_exits(password)
 
 
