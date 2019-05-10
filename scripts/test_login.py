@@ -1,3 +1,5 @@
+import random
+
 from selenium.webdriver.common.by import By
 
 from base.base_analyze import analyze_data
@@ -6,23 +8,32 @@ from page.page import Page
 import pytest
 
 
+def random_password():
+    password = ""
+    for i in range(8):
+        password += str(random.randint(0, 9))
+    return password
+
+
 class TestLogin:
 
     def setup(self):
         self.driver = init_driver()
         self.page = Page(self.driver)
 
-    def test_show_password(self):
+    @pytest.mark.parametrize("password", [random_password(), random_password()])
+    def test_show_password(self, password):
+
         self.page.home.click_mine()
         self.page.mine.click_login_and_signup()
-        self.page.login.input_password("xxx")
+        self.page.login.input_password(password)
 
         # 证明 输入的密码不存在
-        if self.page.login.is_password_exits("xxx"):
+        if self.page.login.is_password_exits(password):
             raise Exception("密码刚刚输入，就是能找到，不符合需求")
 
         self.page.login.click_view_password()
-        assert self.page.login.is_password_exits("xxx")
+        assert self.page.login.is_password_exits(password)
 
 
 
