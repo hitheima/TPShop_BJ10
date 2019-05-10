@@ -123,3 +123,52 @@ class BaseAction:
             return True
         except Exception:
             return False
+
+    def scroll_page_one_time(self, dir="up"):
+        """
+        根据方向，滑动一次（半屏）
+        :param dir:
+            up：从下往上
+            down：从上往下
+            left：从右往左
+            right：从左往右
+        :return:
+        """
+        screen_width = self.driver.get_window_size()["width"]
+        screen_height = self.driver.get_window_size()["height"]
+
+        bottom_x = screen_width * 0.5
+        bottom_y = screen_height * 0.75
+        top_x = bottom_x
+        top_y = screen_height * 0.25
+        left_x = screen_width * 0.25
+        left_y = screen_height * 0.5
+        right_x = screen_width * 0.75
+        right_y = left_y
+
+        if dir == "up":
+            self.driver.swipe(bottom_x, bottom_y, top_x, top_y, 3000)
+        elif dir == "down":
+            self.driver.swipe(top_x, top_y, bottom_x, bottom_y, 3000)
+        elif dir == "left":
+            self.driver.swipe(right_x, right_y, left_x, left_y, 3000)
+        elif dir == "right":
+            self.driver.swipe(left_x, left_y, right_x, right_y, 3000)
+        else:
+            raise Exception("请传入正确的参数 up/down/left/right")
+
+    def is_feature_exist_with_scroll(self, feature):
+        old = ""
+        while True:
+            try:
+                old = self.driver.page_source
+                self.find_element(feature)
+                return True
+            except Exception:
+                # 滑动操作
+
+                self.scroll_page_one_time()
+
+                if self.driver.page_source == old:
+                    print("滑动到底部了")
+                    return False

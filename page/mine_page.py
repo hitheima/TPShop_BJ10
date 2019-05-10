@@ -15,6 +15,9 @@ class MinePage(BaseAction):
     # titlebar_标题
     titlebar_title = By.ID, "com.tpshop.malls:id/titlebar_title_txtv"
 
+    # 收货地址的特征
+    address_button = By.XPATH, "//*[@text='收货地址']"
+
     @allure.step(title='我的 - 点击 登录/注册')
     # 点击 登录/注册
     def click_login_and_signup(self):
@@ -29,6 +32,12 @@ class MinePage(BaseAction):
     # 点击 设置按钮
     def get_titlebar_text(self):
         return self.find_element(self.titlebar_title).text
+
+    def click_address(self):
+        if self.is_feature_exist_with_scroll(self.address_button):
+            self.click(self.address_button)
+        else:
+            raise Exception("没有找到收货地址")
 
     def is_login(self):
         """
