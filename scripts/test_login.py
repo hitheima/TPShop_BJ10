@@ -16,8 +16,16 @@ class TestLogin:
         self.page.home.click_mine()
         self.page.mine.click_login_and_signup()
         self.page.login.input_password("xxx")
+
+        # 证明 输入的密码不存在
+        if self.page.login.is_password_exits("xxx"):
+            raise Exception("密码刚刚输入，就是能找到，不符合需求")
+
         self.page.login.click_view_password()
         assert self.page.login.is_password_exits("xxx")
+
+
+
 
 
 
