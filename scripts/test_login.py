@@ -31,29 +31,21 @@ class TestLogin:
         self.driver = init_driver()
         self.page = Page(self.driver)
 
-    @pytest.mark.parametrize("password", run_test_show_password_times(2))
-    def test_show_password(self, password):
-
-        self.page.home.click_mine()
-        self.page.mine.click_login_and_signup()
-        self.page.login.input_password(password)
-
-        # 证明 输入的密码不存在
-        if self.page.login.is_password_exits(password):
-            raise Exception("密码刚刚输入，就是能找到，不符合需求")
-
-        self.page.login.click_view_password()
-        time.sleep(1)
-        allure.attach("截图：", self.driver.get_screenshot_as_png(), AttachmentType.PNG)
-        assert self.page.login.is_password_exits(password)
-
-
-
-
-
-
-
-
+    # @pytest.mark.parametrize("password", run_test_show_password_times(2))
+    # def test_show_password(self, password):
+    #
+    #     self.page.home.click_mine()
+    #     self.page.mine.click_login_and_signup()
+    #     self.page.login.input_password(password)
+    #
+    #     # 证明 输入的密码不存在
+    #     if self.page.login.is_password_exits(password):
+    #         raise Exception("密码刚刚输入，就是能找到，不符合需求")
+    #
+    #     self.page.login.click_view_password()
+    #     time.sleep(1)
+    #     allure.attach("截图：", self.driver.get_screenshot_as_png(), AttachmentType.PNG)
+    #     assert self.page.login.is_password_exits(password)
 
     # @pytest.mark.parametrize("args", analyze_data("login_data", "test_login_miss_part"))
     # def test_login_miss_part(self, args):

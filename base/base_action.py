@@ -56,10 +56,15 @@ class BaseAction:
         self.find_element(feature).clear()
 
     def press_back(self):
-        """
-        按返回键
-        """
+        # """
+        # 按返回键
+        # """
         self.driver.press_keycode(4)
+
+        # if self.driver.capabilities["desired"].get("automationName") == 'Uiautomator2':
+        #     self.driver.press_keycode(4)
+        # else:
+        #     self.driver.key_event(4)
 
     def press_enter(self):
         """
