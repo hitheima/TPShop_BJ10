@@ -15,13 +15,20 @@ def random_password():
     return password
 
 
+def run_test_show_password_times(count):
+    temp_list = list()
+    for i in range(count):
+        temp_list.append(random_password())
+    return temp_list
+
+
 class TestLogin:
 
     def setup(self):
         self.driver = init_driver()
         self.page = Page(self.driver)
 
-    @pytest.mark.parametrize("password", [random_password(), random_password()])
+    @pytest.mark.parametrize("password", run_test_show_password_times(2))
     def test_show_password(self, password):
 
         self.page.home.click_mine()
