@@ -13,6 +13,8 @@ class LoginPage(BaseAction):
     password_edit_text = By.ID, "com.tpshop.malls:id/edit_password"
     # 登录 - 登录按钮
     login_button = By.ID, "com.tpshop.malls:id/btn_login"
+    # 登录 - 显示密码按钮
+    view_password_button = By.ID, "com.tpshop.malls:id/img_view_pwd"
 
     # 输入 用户名
     @allure.step(title='登录 - 输入 用户名')
@@ -30,6 +32,20 @@ class LoginPage(BaseAction):
     @allure.step(title='登录 - 点击 登录')
     def click_login(self):
         self.click(self.login_button)
+
+    # 点击 显示密码
+    @allure.step(title='登录 - 点击 显示密码')
+    def click_view_password(self):
+        self.click(self.view_password_button)
+
+    def is_password_exits(self, password):
+        """
+        根据密码，判断密码是否存在
+        :param password:
+        :return:
+        """
+        password_content = By.XPATH, "//*[@text='" + password + "']"
+        return self.is_feature_exits(password_content)
 
     def is_login_button_enabled(self):
         """

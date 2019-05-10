@@ -86,13 +86,35 @@ class BaseAction:
             allure.attach(title, f.read(), allure.attach_type.PNG)
 
     def find_toast(self, message):
+        """
+        根据 部分 toast内容获取全部toast内容
+        :param message: 部分内容
+        :return:
+        """
         toast_xpath = By.XPATH, "//*[contains(@text,'%s')]" % message
         print(toast_xpath)
         return self.find_element(toast_xpath, timeout=3, poll=0.1).text
 
     def is_toast_exits(self, message):
+        """
+        根据 部分 toast内容判断这个toast是否存在
+        :param message:
+        :return:
+        """
         try:
             self.find_toast(message)
             return True
         except TimeoutException:
+            return False
+
+    def is_feature_exits(self, feature):
+        """
+        根据 元素的特征 判断这个元素是否存在
+        :param feature:
+        :return:
+        """
+        try:
+            self.find_element(feature)
+            return True
+        except Exception:
             return False

@@ -1,3 +1,5 @@
+from selenium.webdriver.common.by import By
+
 from base.base_analyze import analyze_data
 from base.base_driver import init_driver
 from page.page import Page
@@ -10,22 +12,34 @@ class TestLogin:
         self.driver = init_driver()
         self.page = Page(self.driver)
 
-    @pytest.mark.parametrize("args", analyze_data("login_data", "test_login_miss_part"))
-    def test_login_miss_part(self, args):
-        phone = args["phone"]
-        password = args["password"]
-
+    def test_show_password(self):
         self.page.home.click_mine()
         self.page.mine.click_login_and_signup()
-        self.page.login.input_phone(phone)
-        self.page.login.input_password(password)
+        self.page.login.input_password("xxx")
+        self.page.login.click_view_password()
+        assert self.page.login.is_password_exits("xxx")
 
-        assert not self.page.login.is_login_button_enabled()
 
-        # if self.page.login.is_login_button_enabled():
-        #     assert not True
-        # else:
-        #     assert not False
+
+
+
+
+    # @pytest.mark.parametrize("args", analyze_data("login_data", "test_login_miss_part"))
+    # def test_login_miss_part(self, args):
+    #     phone = args["phone"]
+    #     password = args["password"]
+    #
+    #     self.page.home.click_mine()
+    #     self.page.mine.click_login_and_signup()
+    #     self.page.login.input_phone(phone)
+    #     self.page.login.input_password(password)
+    #
+    #     assert not self.page.login.is_login_button_enabled()
+    #
+    #     # if self.page.login.is_login_button_enabled():
+    #     #     assert not True
+    #     # else:
+    #     #     assert not False
 
     # @pytest.mark.parametrize("args", analyze_data("login_data", "test_login"))
     # def test_login(self, args):
